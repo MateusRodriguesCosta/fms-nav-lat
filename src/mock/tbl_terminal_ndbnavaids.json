@@ -1,0 +1,46 @@
+[
+    {
+        "airport_identifier": "MMGL",
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "navaid_class": "HOMW",
+        "ndb_frequency": 395,
+        "ndb_identifier": "GD",
+        "ndb_latitude": 20.46859167,
+        "ndb_longitude": -103.17468333,
+        "ndb_name": "DON MIGUEL HIDALGO INTLGUADAL"
+    },
+    {
+        "airport_identifier": "MUSC",
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H MW",
+        "ndb_frequency": 287,
+        "ndb_identifier": "ULV",
+        "ndb_latitude": 22.48689722,
+        "ndb_longitude": -79.96666944,
+        "ndb_name": "SANTA CLARA"
+    },
+    {
+        "airport_identifier": "TISX",
+        "area_code": "LAM",
+        "icao_code": "TI",
+        "navaid_class": "HOMW",
+        "ndb_frequency": 241,
+        "ndb_identifier": "ST",
+        "ndb_latitude": 17.69191944,
+        "ndb_longitude": -64.88465,
+        "ndb_name": "PESTE CHRISTIANSTED"
+    },
+    {
+        "airport_identifier": "TJSJ",
+        "area_code": "LAM",
+        "icao_code": "TJ",
+        "navaid_class": "HOMW",
+        "ndb_frequency": 330,
+        "ndb_identifier": "SJ",
+        "ndb_latitude": 18.40891389,
+        "ndb_longitude": -66.08955556,
+        "ndb_name": "PATTY SAN JUAN"
+    }
+]

@@ -1,0 +1,156 @@
+[
+    {
+        "airport_identifier": "MMAA",
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "llz_identifier": "IACA",
+        "marker_identifier": "MM28",
+        "marker_latitude": 16.74730556,
+        "marker_longitude": -99.72572222,
+        "marker_type": " MM",
+        "runway_identifier": "RW28"
+    },
+    {
+        "airport_identifier": "MMGL",
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "llz_identifier": "IGDL",
+        "marker_identifier": "OM28",
+        "marker_latitude": 20.46859167,
+        "marker_longitude": -103.17468333,
+        "marker_type": "LOM",
+        "runway_identifier": "RW28"
+    },
+    {
+        "airport_identifier": "MMMD",
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "llz_identifier": "IMID",
+        "marker_identifier": "MM10",
+        "marker_latitude": 20.93333333,
+        "marker_longitude": -89.66666667,
+        "marker_type": " MM",
+        "runway_identifier": "RW10"
+    },
+    {
+        "airport_identifier": "MMMD",
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "llz_identifier": "IMID",
+        "marker_identifier": "OM10",
+        "marker_latitude": 20.95194444,
+        "marker_longitude": -89.72694444,
+        "marker_type": " OM",
+        "runway_identifier": "RW10"
+    },
+    {
+        "airport_identifier": "MMTJ",
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "llz_identifier": "ITIJ",
+        "marker_identifier": "MM09",
+        "marker_latitude": 32.54472222,
+        "marker_longitude": -116.99361111,
+        "marker_type": " MM",
+        "runway_identifier": "RW09"
+    },
+    {
+        "airport_identifier": "MMTM",
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "llz_identifier": "ITAM",
+        "marker_identifier": "MM13",
+        "marker_latitude": 22.3,
+        "marker_longitude": -97.86666667,
+        "marker_type": " MM",
+        "runway_identifier": "RW13"
+    },
+    {
+        "airport_identifier": "MPTO",
+        "area_code": "LAM",
+        "icao_code": "MP",
+        "llz_identifier": "INAT",
+        "marker_identifier": "MM03R",
+        "marker_latitude": 9.04033056,
+        "marker_longitude": -79.39675,
+        "marker_type": " MM",
+        "runway_identifier": "RW03R"
+    },
+    {
+        "airport_identifier": "MUHG",
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "llz_identifier": "IHG",
+        "marker_identifier": "MM05",
+        "marker_latitude": 20.77051111,
+        "marker_longitude": -76.33183611,
+        "marker_type": " MM",
+        "runway_identifier": "RW05"
+    },
+    {
+        "airport_identifier": "MUHG",
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "llz_identifier": "IHG",
+        "marker_identifier": "OM05",
+        "marker_latitude": 20.73051389,
+        "marker_longitude": -76.37639722,
+        "marker_type": " OM",
+        "runway_identifier": "RW05"
+    },
+    {
+        "airport_identifier": "TBPB",
+        "area_code": "LAM",
+        "icao_code": "TB",
+        "llz_identifier": "IBGI",
+        "marker_identifier": "MM09",
+        "marker_latitude": 13.06900556,
+        "marker_longitude": -59.51505,
+        "marker_type": " MM",
+        "runway_identifier": "RW09"
+    },
+    {
+        "airport_identifier": "TISX",
+        "area_code": "LAM",
+        "icao_code": "TI",
+        "llz_identifier": "ISTX",
+        "marker_identifier": "MM10",
+        "marker_latitude": 17.69983611,
+        "marker_longitude": -64.81753611,
+        "marker_type": " MM",
+        "runway_identifier": "RW10"
+    },
+    {
+        "airport_identifier": "TISX",
+        "area_code": "LAM",
+        "icao_code": "TI",
+        "llz_identifier": "ISTX",
+        "marker_identifier": "OM10",
+        "marker_latitude": 17.69192222,
+        "marker_longitude": -64.88465,
+        "marker_type": " OM",
+        "runway_identifier": "RW10"
+    },
+    {
+        "airport_identifier": "TJSJ",
+        "area_code": "LAM",
+        "icao_code": "TJ",
+        "llz_identifier": "ISJU",
+        "marker_identifier": "MM08",
+        "marker_latitude": 18.43519722,
+        "marker_longitude": -66.0235,
+        "marker_type": " MM",
+        "runway_identifier": "RW08"
+    },
+    {
+        "airport_identifier": "TJSJ",
+        "area_code": "LAM",
+        "icao_code": "TJ",
+        "llz_identifier": "ISJU",
+        "marker_identifier": "OM08",
+        "marker_latitude": 18.40890833,
+        "marker_longitude": -66.08955556,
+        "marker_type": " OM",
+        "runway_identifier": "RW08"
+    }
+]

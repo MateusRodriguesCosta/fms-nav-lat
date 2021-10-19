@@ -4,12 +4,22 @@ const port = process.env.PORT || 80;              //Save the port number where y
 
 //Idiomatic expression in express to route and respond to a client request
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
-    res.send('Nice little boy!');      //server responds by sending the index.html file to the client's browser
+    res.send('LAT NAV API SERVICE IS ONLINE');      //server responds by sending the index.html file to the client's browser
                                                         //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
 });
 
-app.listen(port, (
-    
-) => {            //server starts listening for any attempts from a client to connect at port: {port}
+app.get('/track', (req, res) => {
+    res.send('GETTING WHOLE TRACK COORDINATES');
+});
+
+app.get('/track/next', (req, res) => {
+    res.send('GETTING THE NEXT WAYPOINT');
+});
+
+app.get('/track/last', (req, res) => {
+    res.send('GETTING THE LAST WAYPOINT');
+});
+
+app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
     console.log(`Now listening on port ${port}`); 
 });

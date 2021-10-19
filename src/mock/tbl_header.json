@@ -1,0 +1,13 @@
+[
+    {
+        "arincversion": "424-18",
+        "current_airac": "1903",
+        "effective_fromto": "2802280319",
+        "parsed_at": "30/03/2021 - 11:39:36 UTC",
+        "previous_airac": "1902",
+        "previous_fromto": "3101280219",
+        "record_set": "extended",
+        "revision": "1",
+        "version": "1.10"
+    }
+]

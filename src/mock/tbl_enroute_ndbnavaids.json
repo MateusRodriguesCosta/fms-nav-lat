@@ -1,0 +1,602 @@
+[
+    {
+        "area_code": "LAM",
+        "icao_code": "MB",
+        "navaid_class": "H  W",
+        "ndb_frequency": 387,
+        "ndb_identifier": "PV",
+        "ndb_latitude": 21.77771667,
+        "ndb_longitude": -72.26056111,
+        "ndb_name": "PROVIDENCIALES"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MB",
+        "navaid_class": "H  W",
+        "ndb_frequency": 260,
+        "ndb_identifier": "SC",
+        "ndb_latitude": 21.5125,
+        "ndb_longitude": -71.5375,
+        "ndb_name": "SOUTH CAICOS"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MD",
+        "navaid_class": "H  W",
+        "ndb_frequency": 300,
+        "ndb_identifier": "HGR",
+        "ndb_latitude": 18.58138889,
+        "ndb_longitude": -69.98027778,
+        "ndb_name": "EL HIGUERO"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MD",
+        "navaid_class": "H  W",
+        "ndb_frequency": 220,
+        "ndb_identifier": "HIJ",
+        "ndb_latitude": 18.51416667,
+        "ndb_longitude": -69.76583333,
+        "ndb_name": "SAN ISIDRO"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MD",
+        "navaid_class": "H  W",
+        "ndb_frequency": 200,
+        "ndb_identifier": "LAS",
+        "ndb_latitude": 18.57805556,
+        "ndb_longitude": -69.72444444,
+        "ndb_name": "GUERRA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MG",
+        "navaid_class": "H  W",
+        "ndb_frequency": 347,
+        "ndb_identifier": "BAR",
+        "ndb_latitude": 15.73666667,
+        "ndb_longitude": -88.595,
+        "ndb_name": "PUERTO BARRIOS"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MG",
+        "navaid_class": "H  W",
+        "ndb_frequency": 400,
+        "ndb_identifier": "IZP",
+        "ndb_latitude": 13.93333333,
+        "ndb_longitude": -90.73333333,
+        "ndb_name": "IZTAPA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MG",
+        "navaid_class": "H  W",
+        "ndb_frequency": 363,
+        "ndb_identifier": "POP",
+        "ndb_latitude": 16.325,
+        "ndb_longitude": -89.42166667,
+        "ndb_name": "POPTUN"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MG",
+        "navaid_class": "H  W",
+        "ndb_frequency": 260,
+        "ndb_identifier": "RUB",
+        "ndb_latitude": 15.99166667,
+        "ndb_longitude": -90.44833333,
+        "ndb_name": "RUBELSANTO"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MG",
+        "navaid_class": "H",
+        "ndb_frequency": 425,
+        "ndb_identifier": "SGA",
+        "ndb_latitude": 13.93368056,
+        "ndb_longitude": -90.86142222,
+        "ndb_name": "SAN JOSE"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MG",
+        "navaid_class": "H  W",
+        "ndb_frequency": 385,
+        "ndb_identifier": "TKL",
+        "ndb_latitude": 16.91562778,
+        "ndb_longitude": -89.88013333,
+        "ndb_name": "MUNDO MAYA FLORES"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MG",
+        "navaid_class": "H",
+        "ndb_frequency": 313,
+        "ndb_identifier": "XLA",
+        "ndb_latitude": 14.86138889,
+        "ndb_longitude": -91.50611111,
+        "ndb_name": "QUETZALTENANGO"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "navaid_class": "H  W",
+        "ndb_frequency": 214,
+        "ndb_identifier": "CHX",
+        "ndb_latitude": 26.71640833,
+        "ndb_longitude": -108.33047778,
+        "ndb_name": "CHOIX"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "navaid_class": "H",
+        "ndb_frequency": 402,
+        "ndb_identifier": "CVJ",
+        "ndb_latitude": 18.83144722,
+        "ndb_longitude": -99.25938056,
+        "ndb_name": "CUERNAVACA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "navaid_class": "H",
+        "ndb_frequency": 400,
+        "ndb_identifier": "ENS",
+        "ndb_latitude": 31.79591111,
+        "ndb_longitude": -116.60694167,
+        "ndb_name": "ENSENADA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "navaid_class": "H",
+        "ndb_frequency": 382,
+        "ndb_identifier": "GRN",
+        "ndb_latitude": 28.0269,
+        "ndb_longitude": -114.02231389,
+        "ndb_name": "NEGRO"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "navaid_class": "H",
+        "ndb_frequency": 392,
+        "ndb_identifier": "PB1",
+        "ndb_latitude": 18.43583333,
+        "ndb_longitude": -93.18916667,
+        "ndb_name": "DOS BOCAS"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "navaid_class": "H",
+        "ndb_frequency": 381,
+        "ndb_identifier": "PPI",
+        "ndb_latitude": 17.95,
+        "ndb_longitude": -92.32083333,
+        "ndb_name": "CIUDAD PEMEX"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MM",
+        "navaid_class": "H  W",
+        "ndb_frequency": 359,
+        "ndb_identifier": "TPX",
+        "ndb_latitude": 19.61142222,
+        "ndb_longitude": -98.96039167,
+        "ndb_name": "TEPEXPAN"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MN",
+        "navaid_class": "H MW",
+        "ndb_frequency": 357,
+        "ndb_identifier": "CIS",
+        "ndb_latitude": 12.17416667,
+        "ndb_longitude": -83.05777778,
+        "ndb_name": "CORN ISLAND"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MP",
+        "navaid_class": "H  W",
+        "ndb_frequency": 440,
+        "ndb_identifier": "CHE",
+        "ndb_latitude": 7.98233056,
+        "ndb_longitude": -80.410125,
+        "ndb_name": "CHITRE"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H L",
+        "ndb_frequency": 353,
+        "ndb_identifier": "J",
+        "ndb_latitude": 22.085,
+        "ndb_longitude": -84.18222222,
+        "ndb_name": "SAN JULIAN"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H",
+        "ndb_frequency": 322,
+        "ndb_identifier": "L",
+        "ndb_latitude": 22.33055556,
+        "ndb_longitude": -83.65416667,
+        "ndb_name": "LA COLOMA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 278,
+        "ndb_identifier": "UBA",
+        "ndb_latitude": 20.35728889,
+        "ndb_longitude": -74.5044,
+        "ndb_name": "BARACOA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H",
+        "ndb_frequency": 250,
+        "ndb_identifier": "UBP",
+        "ndb_latitude": 23.023175,
+        "ndb_longitude": -82.58074167,
+        "ndb_name": "PLAYA BARACOA HAVANA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H",
+        "ndb_frequency": 315,
+        "ndb_identifier": "UBR",
+        "ndb_latitude": 22.61997222,
+        "ndb_longitude": -79.14499167,
+        "ndb_name": "LAS BRUJAS"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 268,
+        "ndb_identifier": "UBY",
+        "ndb_latitude": 20.39389444,
+        "ndb_longitude": -76.61917778,
+        "ndb_name": "BAYAMO"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 380,
+        "ndb_identifier": "UCY",
+        "ndb_latitude": 22.85805556,
+        "ndb_longitude": -82.85277778,
+        "ndb_name": "CAYABO CAYAJABO"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 300,
+        "ndb_identifier": "UGT",
+        "ndb_latitude": 20.07895278,
+        "ndb_longitude": -75.15829722,
+        "ndb_name": "GUANTANAMO"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H L",
+        "ndb_frequency": 465,
+        "ndb_identifier": "ULM",
+        "ndb_latitude": 22.32166667,
+        "ndb_longitude": -83.68944444,
+        "ndb_name": "LA COLOMA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 212,
+        "ndb_identifier": "UMO",
+        "ndb_latitude": 20.64880833,
+        "ndb_longitude": -74.93049167,
+        "ndb_name": "MOA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H H",
+        "ndb_frequency": 412,
+        "ndb_identifier": "UNG",
+        "ndb_latitude": 21.75589167,
+        "ndb_longitude": -82.87815833,
+        "ndb_name": "GERONA NUEVA GERONA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H MW",
+        "ndb_frequency": 310,
+        "ndb_identifier": "UOC",
+        "ndb_latitude": 22.515,
+        "ndb_longitude": -78.51166667,
+        "ndb_name": "CAYO COCO"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 382,
+        "ndb_identifier": "UPA",
+        "ndb_latitude": 22.37361111,
+        "ndb_longitude": -78.77305556,
+        "ndb_name": "ALEGRE"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H",
+        "ndb_frequency": 278,
+        "ndb_identifier": "URC",
+        "ndb_latitude": 21.82168333,
+        "ndb_longitude": -82.79934722,
+        "ndb_name": "NUEVA GERONA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 402,
+        "ndb_identifier": "USJ",
+        "ndb_latitude": 22.08583333,
+        "ndb_longitude": -84.21444444,
+        "ndb_name": "SAN JULIAN"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 315,
+        "ndb_identifier": "USR",
+        "ndb_latitude": 21.74583333,
+        "ndb_longitude": -78.81194444,
+        "ndb_name": "SIMONES"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H",
+        "ndb_frequency": 300,
+        "ndb_identifier": "UTD",
+        "ndb_latitude": 21.79058333,
+        "ndb_longitude": -79.99118056,
+        "ndb_name": "TRINIDAD"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 272,
+        "ndb_identifier": "UVR",
+        "ndb_latitude": 23.09044722,
+        "ndb_longitude": -81.36706944,
+        "ndb_name": "VARDER"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 296,
+        "ndb_identifier": "UVT",
+        "ndb_latitude": 20.98861389,
+        "ndb_longitude": -76.93878611,
+        "ndb_name": "TUNAS VICTORIA DE LAS TUNAS"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 283,
+        "ndb_identifier": "UZG",
+        "ndb_latitude": 22.935,
+        "ndb_longitude": -82.03861111,
+        "ndb_name": "ZARAGO"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "MW",
+        "navaid_class": "H MW",
+        "ndb_frequency": 415,
+        "ndb_identifier": "CBC",
+        "ndb_latitude": 19.68993056,
+        "ndb_longitude": -79.85651944,
+        "ndb_name": "CAYMAN BRAC"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TA",
+        "navaid_class": "H  W",
+        "ndb_frequency": 369,
+        "ndb_identifier": "ZDX",
+        "ndb_latitude": 17.15712778,
+        "ndb_longitude": -61.79531667,
+        "ndb_name": "V.C. BIRD SAINT JOHNS"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TD",
+        "navaid_class": "H",
+        "ndb_frequency": 273,
+        "ndb_identifier": "DOM",
+        "ndb_latitude": 15.55093333,
+        "ndb_longitude": -61.295625,
+        "ndb_name": "DOUGLAS CHARLES"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TF",
+        "navaid_class": "H",
+        "ndb_frequency": 329,
+        "ndb_identifier": "FOF",
+        "ndb_latitude": 14.58908333,
+        "ndb_longitude": -61.00130556,
+        "ndb_name": "MARTINIQUE"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TF",
+        "navaid_class": "H  W",
+        "ndb_frequency": 376,
+        "ndb_identifier": "MG",
+        "ndb_latitude": 15.86975,
+        "ndb_longitude": -61.27086111,
+        "ndb_name": "MARIE GALANTE GRAND BOURG"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TF",
+        "navaid_class": "H",
+        "ndb_frequency": 385,
+        "ndb_identifier": "PTP",
+        "ndb_latitude": 16.28361111,
+        "ndb_longitude": -61.63094444,
+        "ndb_name": "POINTE A PITRE"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TG",
+        "navaid_class": "H",
+        "ndb_frequency": 362,
+        "ndb_identifier": "GND",
+        "ndb_latitude": 12.00814167,
+        "ndb_longitude": -61.78007222,
+        "ndb_name": "MAURICE BISHOPSAINT GEORGES"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TJ",
+        "navaid_class": "H HW",
+        "ndb_frequency": 391,
+        "ndb_identifier": "DDP",
+        "ndb_latitude": 18.46827778,
+        "ndb_longitude": -66.41239167,
+        "ndb_name": "DORADO SAN JUAN"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TK",
+        "navaid_class": "H  W",
+        "ndb_frequency": 325,
+        "ndb_identifier": "SKB",
+        "ndb_latitude": 17.29518333,
+        "ndb_longitude": -62.74400556,
+        "ndb_name": "ROBERT L BRADSHAW ST KITTS"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TL",
+        "navaid_class": "H  W",
+        "ndb_frequency": 305,
+        "ndb_identifier": "BNE",
+        "ndb_latitude": 13.73365,
+        "ndb_longitude": -60.97738611,
+        "ndb_name": "HEWANORRA SAINT LUCIA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TL",
+        "navaid_class": "H  W",
+        "ndb_frequency": 415,
+        "ndb_identifier": "SLU",
+        "ndb_latitude": 14.01414167,
+        "ndb_longitude": -61.00605833,
+        "ndb_name": "GEORGE CHARLES ST. LUCIA"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TN",
+        "navaid_class": "H",
+        "ndb_frequency": 321,
+        "ndb_identifier": "PJB",
+        "ndb_latitude": 12.13257222,
+        "ndb_longitude": -68.280725,
+        "ndb_name": "BONAIRE"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TN",
+        "navaid_class": "H MW",
+        "ndb_frequency": 284,
+        "ndb_identifier": "PJD",
+        "ndb_latitude": 18.03779444,
+        "ndb_longitude": -63.11786944,
+        "ndb_name": "SAINT MAARTEN"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TN",
+        "navaid_class": "H HW",
+        "ndb_frequency": 235,
+        "ndb_identifier": "PJE",
+        "ndb_latitude": 17.48744167,
+        "ndb_longitude": -62.99083889,
+        "ndb_name": "ST. EUSTATIOUS"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TT",
+        "navaid_class": "H  W",
+        "ndb_frequency": 323,
+        "ndb_identifier": "TAB",
+        "ndb_latitude": 11.14741111,
+        "ndb_longitude": -60.833525,
+        "ndb_name": "ROBINSON SCARBOROUGH"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TT",
+        "navaid_class": "H MW",
+        "ndb_frequency": 382,
+        "ndb_identifier": "TRI",
+        "ndb_latitude": 10.595125,
+        "ndb_longitude": -61.42231389,
+        "ndb_name": "PIARCO PORT OF SPAIN"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TU",
+        "navaid_class": "H  W",
+        "ndb_frequency": 360,
+        "ndb_identifier": "BFI",
+        "ndb_latitude": 18.44370556,
+        "ndb_longitude": -64.541975,
+        "ndb_name": "TERRANCE B LETTSOME"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TV",
+        "navaid_class": "H",
+        "ndb_frequency": 302,
+        "ndb_identifier": "CAI",
+        "ndb_latitude": 12.69606111,
+        "ndb_longitude": -61.3394,
+        "ndb_name": "CANOUAN ST. VINCENT"
+    },
+    {
+        "area_code": "LAM",
+        "icao_code": "TV",
+        "navaid_class": "H  W",
+        "ndb_frequency": 403,
+        "ndb_identifier": "SV",
+        "ndb_latitude": 13.14063333,
+        "ndb_longitude": -61.22616667,
+        "ndb_name": "ST VINCENT SAINT VINCENT I"
+    }
+]
