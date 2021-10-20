@@ -9,6 +9,7 @@ class Navigation {
     }
   
     public pathToNextWaypoint() {
+        //new Coordinate(156.742,156.742).GetLatitude(CoordinateType.DMS)
       return ``;
     }
    

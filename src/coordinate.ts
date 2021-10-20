@@ -1,3 +1,4 @@
+import CoordinateConversion from './coordinateConversion';
 import CoordinateType from './coordinateTypeEnum';
 
 class Coordinate {
@@ -9,24 +10,42 @@ class Coordinate {
       this.Latitude = Latitude;
       this.Longitude = Longitude;
     }
-  
-    public Get(type: CoordinateType = NaN) {
 
-        if (type = CoordinateType.Decimal) {
-            return ``;
-        } if (type = CoordinateType.DegreePortion) {
-            return ``;
-        } else if(type = CoordinateType.MinutesPortion) {
-            return ``;
-        } else if(type = CoordinateType.SecondsPortion) {
-            return ``;
-        } else {
-            return ``;
-        }   
+    public GetLatitude(type: CoordinateType = CoordinateType.Decimal): any {
+        
+        const coordinateConversion:CoordinateConversion = new CoordinateConversion();
+
+        switch (type) {
+          case CoordinateType.DMS:
+            return coordinateConversion.toDMS(this.Latitude);
+          case CoordinateType.DegreePortion:
+            return coordinateConversion.GetDegree(coordinateConversion.toDMS(this.Latitude));
+          case CoordinateType.MinutesPortion:
+            return coordinateConversion.GetMinutes(coordinateConversion.toDMS(this.Latitude));
+          case CoordinateType.SecondsPortion:
+            return coordinateConversion.GetSeconds(coordinateConversion.toDMS(this.Latitude));
+          default:
+            return this.Latitude;
+        }
+  
     }
-   
-    public Set() {
-        return ``;
+
+    public GetLongitude(type: CoordinateType = CoordinateType.Decimal): any {
+
+        const coordinateConversion:CoordinateConversion = new CoordinateConversion();
+
+        switch (type) {
+          case CoordinateType.DMS:
+            return coordinateConversion.toDMS(this.Longitude);
+          case CoordinateType.DegreePortion:
+            return coordinateConversion.GetDegree(coordinateConversion.toDMS(this.Longitude));
+          case CoordinateType.MinutesPortion:
+            return coordinateConversion.GetMinutes(coordinateConversion.toDMS(this.Longitude));
+          case CoordinateType.SecondsPortion:
+            return coordinateConversion.GetSeconds(coordinateConversion.toDMS(this.Longitude));
+          default:
+            return this.Longitude;
+        }  
     }
 
   }

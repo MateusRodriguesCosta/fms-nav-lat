@@ -1,8 +1,9 @@
 enum CoordinateType {
     Decimal = 1,
-    DegreePortion = 2,
-    MinutesPortion = 3,
-    SecondsPortion = 4
+    DMS = 2,
+    DegreePortion = 3,
+    MinutesPortion = 4,
+    SecondsPortion = 5
 }
   
   export = CoordinateType;

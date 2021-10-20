@@ -1,11 +1,16 @@
 import express from 'express'; //Import the express dependency
+import Coordinate from './coordinate';
+import CoordinateType from './coordinateTypeEnum';
+
 const app = express();              //Instantiate an express app, the main work horse of this server
 const port = process.env.PORT || 80;              //Save the port number where your server will be listening
 
 //Idiomatic expression in express to route and respond to a client request
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
-    res.send('LAT NAV API SERVICE IS ONLINE');      //server responds by sending the index.html file to the client's browser
-                                                        //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
+    //res.send('LAT NAV API SERVICE IS ONLINE');      //server responds by sending the index.html file to the client's browser                                 
+
+    res.send('Result is ' + new Coordinate(156.742,156.742).GetLatitude(CoordinateType.DMS));
+
 });
 
 app.get('/track', (req, res) => {

@@ -4,12 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express")); //Import the express dependency
+const coordinate_1 = __importDefault(require("./coordinate"));
+const coordinateTypeEnum_1 = __importDefault(require("./coordinateTypeEnum"));
 const app = (0, express_1.default)(); //Instantiate an express app, the main work horse of this server
 const port = process.env.PORT || 80; //Save the port number where your server will be listening
 //Idiomatic expression in express to route and respond to a client request
 app.get('/', (req, res) => {
-    res.send('LAT NAV API SERVICE IS ONLINE'); //server responds by sending the index.html file to the client's browser
-    //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
+    //res.send('LAT NAV API SERVICE IS ONLINE');      //server responds by sending the index.html file to the client's browser                                 
+    res.send('Result is ' + new coordinate_1.default(156.742, 156.742).GetLatitude(coordinateTypeEnum_1.default.DMS));
 });
 app.get('/track', (req, res) => {
     res.send('GETTING WHOLE TRACK COORDINATES');
