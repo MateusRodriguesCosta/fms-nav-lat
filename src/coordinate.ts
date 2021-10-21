@@ -11,7 +11,7 @@ class Coordinate {
       this.Longitude = Longitude;
     }
 
-    public GetLatitude(type: CoordinateType = CoordinateType.Decimal): any {
+    GetLatitude(type: CoordinateType = CoordinateType.Decimal): any {
         
         const coordinateConversion:CoordinateConversion = new CoordinateConversion();
 
@@ -30,7 +30,7 @@ class Coordinate {
   
     }
 
-    public GetLongitude(type: CoordinateType = CoordinateType.Decimal): any {
+    GetLongitude(type: CoordinateType = CoordinateType.Decimal): any {
 
         const coordinateConversion:CoordinateConversion = new CoordinateConversion();
 

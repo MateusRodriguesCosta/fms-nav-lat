@@ -1,4 +1,5 @@
 import Coordinate from "./coordinate";
+import CoordinateType from "./coordinateTypeEnum";
 
 class AngularOperations {
 
