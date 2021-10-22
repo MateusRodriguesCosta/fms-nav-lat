@@ -1,4 +1,4 @@
-import coordinate from './coordinate';
+import coordinate from './entities/coordinate';
 
 class Navigation {
   

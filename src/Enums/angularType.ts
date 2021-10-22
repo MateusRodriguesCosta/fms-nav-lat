@@ -1,4 +1,4 @@
-enum CoordinateType {
+enum AngularType {
     Decimal = 1,
     DMS = 2,
     DegreePortion = 3,
@@ -6,4 +6,4 @@ enum CoordinateType {
     SecondsPortion = 5
 }
   
-  export = CoordinateType;
+  export = AngularType;

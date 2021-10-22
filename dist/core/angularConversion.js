@@ -1,5 +1,5 @@
 "use strict";
-class CoordinateConversion {
+class AngularConversion {
     toDMS(value) {
         // Degrees are the Non Decimal value
         let degrees = Math.trunc(value);
@@ -14,7 +14,7 @@ class CoordinateConversion {
             // Minutes are the decimal portion multiplied by 60 then the integer result
             minutes = Math.trunc(decimalPortion * 60);
             // Get the decimal portion from the decimal portion above multiplied by 60
-            decimalPortion = +("0." + ((decimalPortion * 60) + "").split(".")[1]);
+            decimalPortion = +("0." + (decimalPortion * 60 + "").split(".")[1]);
             if (typeof decimalPortion !== "number" || Number.isNaN(decimalPortion)) {
                 return `${degrees}°${minutes}'0"`;
             }
@@ -32,7 +32,9 @@ class CoordinateConversion {
             return -1;
         if (this.GetSeconds(value) === -1)
             return -1;
-        return this.GetDegree(value) + (this.GetMinutes(value) / 60) + (this.GetSeconds(value) / 3600);
+        return (this.GetDegree(value) +
+            this.GetMinutes(value) / 60 +
+            this.GetSeconds(value) / 3600);
     }
     GetDegree(value) {
         if (value) {
@@ -48,9 +50,9 @@ class CoordinateConversion {
     }
     GetSeconds(value) {
         if (value) {
-            return +value.split("'")[1].split("\"")[0];
+            return +value.split("'")[1].split('"')[0];
         }
         return -1;
     }
 }
-module.exports = CoordinateConversion;
+module.exports = AngularConversion;
