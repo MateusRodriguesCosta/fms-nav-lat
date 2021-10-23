@@ -11,32 +11,48 @@ class Latitude {
     this.Hemisphere = Hemisphere;
   }
 
-  GetHemisphere(): Hemisphere {
+  public get hemisphere(): Hemisphere {
     return this.Hemisphere;
   }
 
-  Get(type: AngularType = AngularType.Decimal): any {
-    const angularConversion: AngularConversion = new AngularConversion();
-
-    switch (type) {
-      case AngularType.DMS:
-        return angularConversion.toDMS(this.Latitude);
-      case AngularType.DegreePortion:
-        return angularConversion.GetDegree(
-          angularConversion.toDMS(this.Latitude)
-        );
-      case AngularType.MinutesPortion:
-        return angularConversion.GetMinutes(
-          angularConversion.toDMS(this.Latitude)
-        );
-      case AngularType.SecondsPortion:
-        return angularConversion.GetSeconds(
-          angularConversion.toDMS(this.Latitude)
-        );
-      default:
-        return this.Latitude;
-    }
+  public set hemisphere(hemisphere: Hemisphere){
+    this.Hemisphere = hemisphere;
   }
+
+  public get decimal(): number {
+    return this.Latitude;
+  }
+
+  public set decimal(latitude: number) {
+    this.Latitude = latitude;
+  }
+
+  public get dms(): string {
+    const angularConversion: AngularConversion = new AngularConversion();
+    return angularConversion.toDMS(this.Latitude);
+  }
+
+  public get degreePortion(): number {
+    const angularConversion: AngularConversion = new AngularConversion();
+    return angularConversion.GetDegree(
+      angularConversion.toDMS(this.Latitude)
+    );
+  }
+
+  public get minutesPortion(): number {
+    const angularConversion: AngularConversion = new AngularConversion();
+    return angularConversion.GetMinutes(
+      angularConversion.toDMS(this.Latitude)
+    );
+  }
+
+  public get secondsPortion(): number {
+    const angularConversion: AngularConversion = new AngularConversion();
+    return angularConversion.GetSeconds(
+      angularConversion.toDMS(this.Latitude)
+    );
+  }
+
 }
 
 export = Latitude;

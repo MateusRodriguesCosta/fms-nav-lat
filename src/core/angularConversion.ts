@@ -1,4 +1,6 @@
-class AngularConversion {
+import Hemisphere from "../Enums/hemisphere";
+
+class AngularConversions {
   toDMS(value: number): string {
     // Degrees are the Non Decimal value
     let degrees: number = Math.trunc(value);
@@ -28,16 +30,31 @@ class AngularConversion {
     return `${degrees}°${minutes}'${seconds}"`;
   }
 
-  toDecimal(value: string): number {
+  toDecimal(value: string, hemisphere: Hemisphere): number {
+
     if (this.GetDegree(value) === -1) return -1;
     if (this.GetMinutes(value) === -1) return -1;
     if (this.GetSeconds(value) === -1) return -1;
 
-    return (
-      this.GetDegree(value) +
-      this.GetMinutes(value) / 60 +
-      this.GetSeconds(value) / 3600
-    );
+    if(hemisphere === Hemisphere.North || hemisphere === Hemisphere.East){
+
+      return (
+        this.GetDegree(value) +
+        this.GetMinutes(value) / 60 +
+        this.GetSeconds(value) / 3600
+      );
+
+    } else {
+
+      return -(
+        this.GetDegree(value) +
+        this.GetMinutes(value) / 60 +
+        this.GetSeconds(value) / 3600
+      );
+
+    }
+
+    
   }
 
   GetDegree(value: string): number {
@@ -65,4 +82,4 @@ class AngularConversion {
   }
 }
 
-export = AngularConversion;
+export = AngularConversions;
