@@ -5,7 +5,7 @@ import AngularType from "./Enums/angularType";
 import Hemisphere from "./Enums/hemisphere";
 import Latitude from "./entities/latitude";
 import Longitude from "./entities/longitude";
-import AngularOperation from "./core/angularOperations";
+import AngularOperation from "./core/geodesicOperations";
 
 const app = express();
 const port = process.env.PORT || 80;
@@ -14,21 +14,9 @@ app.get("/", (req, res) => {
   let angularOperations: AngularOperation = new AngularOperation();
   let coordinateConversion: AngularConversion = new AngularConversion();
 
-  let c1: Coordinate = new Coordinate(
-    new Latitude(1.23005, Hemisphere.North),
-    new Longitude(123.457, Hemisphere.East)
-  );
-  let c2: Coordinate = new Coordinate(
-    new Latitude(12.3558, Hemisphere.North),
-    new Longitude(12.3, Hemisphere.East)
-  );
+ 
 
-  let cres: number = angularOperations.sum(
-    c1.Latitude.Get(),
-    c2.Latitude.Get()
-  );
-
-  res.send("Result is " + cres);
+  res.send("Result is ");
 });
 
 app.get("/track", (req, res) => {

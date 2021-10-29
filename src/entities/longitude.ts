@@ -6,7 +6,7 @@ class Longitude {
   private Longitude: number;
   private Hemisphere: Hemisphere;
 
-  constructor(Longitude: number, Hemisphere: Hemisphere) {
+  constructor(Longitude: number, Hemisphere: Hemisphere = NaN) {
     this.Longitude = Longitude;
     this.Hemisphere = Hemisphere;
   }
