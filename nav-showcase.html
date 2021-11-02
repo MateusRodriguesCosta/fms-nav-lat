@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>nav api showcase</title>
+</head>
+
+<body>
+    <div class="container" style="width:1000px; margin:0 auto;">
+        <h1>NAV API SHOWCASE</h1>
+        <div style="display: flex; margin-bottom: 15px;">
+            <input id="latitude" type="text" placeholder="Latitude">
+            <input id="longitude" type="text" placeholder="longitude">
+            <button type="button">INCLUIR</button>
+        </div>
+        <div id="googleMap" style="width:900px;height:700px;"></div>
+    </div>
+
+</body>
+
+<script>
+
+    let _coordinates = [];
+
+    function initMap() {
+
+        const lorena = { lat: -22.7272, lng: -45.1199 };
+
+        const map = new google.maps.Map(document.getElementById("googleMap"), {
+            zoom: 11,
+            center: lorena,
+            mapTypeId: google.maps.MapTypeId.HYBRID,
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            rotateControl: false,
+            fullscreenControl: false
+
+        });
+
+        createMarker(lorena, map);
+
+        var lineCoordinates = [
+            new google.maps.LatLng(-22.7272, -45.1199),
+            new google.maps.LatLng(45.4215296, -75.6571931)
+        ];
+
+        drawLine(lineCoordinates, map);
+
+
+
+
+    }
+
+    function createMarker(position, map) {
+        const image = {
+            url: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(10, 12),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(0, 32),
+        };
+
+
+        const marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            icon: image
+        });
+    }
+
+    function drawLine(coordinates, map) {
+        var line = new google.maps.Polyline({
+            path: coordinates,
+            geodesic: true,
+            strokeColor: "#FF0000",
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+            map: map
+        });
+    }
+
+</script>
+
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOV8ryzt1t1suuZmkjTJqFcYIASNMbIqM&callback=initMap&libraries=&v=weekly"
+    async></script>
+
+</html>

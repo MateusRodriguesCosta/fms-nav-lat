@@ -1,5 +1,9 @@
 "use strict";
-class AngularConversion {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+const hemisphere_1 = __importDefault(require("../Enums/hemisphere"));
+class AngularConversions {
     toDMS(value) {
         // Degrees are the Non Decimal value
         let degrees = Math.trunc(value);
@@ -25,16 +29,23 @@ class AngularConversion {
         }
         return `${degrees}°${minutes}'${seconds}"`;
     }
-    toDecimal(value) {
+    toDecimal(value, hemisphere) {
         if (this.GetDegree(value) === -1)
             return -1;
         if (this.GetMinutes(value) === -1)
             return -1;
         if (this.GetSeconds(value) === -1)
             return -1;
-        return (this.GetDegree(value) +
-            this.GetMinutes(value) / 60 +
-            this.GetSeconds(value) / 3600);
+        if (hemisphere === hemisphere_1.default.North || hemisphere === hemisphere_1.default.East) {
+            return (this.GetDegree(value) +
+                this.GetMinutes(value) / 60 +
+                this.GetSeconds(value) / 3600);
+        }
+        else {
+            return -(this.GetDegree(value) +
+                this.GetMinutes(value) / 60 +
+                this.GetSeconds(value) / 3600);
+        }
     }
     GetDegree(value) {
         if (value) {
@@ -55,4 +66,4 @@ class AngularConversion {
         return -1;
     }
 }
-module.exports = AngularConversion;
+module.exports = AngularConversions;

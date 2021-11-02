@@ -1,10 +1,6 @@
 import express from "express";
-import Coordinate from "./entities/coordinate";
+import path from "path";
 import AngularConversion from "./core/angularConversion";
-import AngularType from "./Enums/angularType";
-import Hemisphere from "./Enums/hemisphere";
-import Latitude from "./entities/latitude";
-import Longitude from "./entities/longitude";
 import AngularOperation from "./core/geodesicOperations";
 
 const app = express();
@@ -14,9 +10,9 @@ app.get("/", (req, res) => {
   let angularOperations: AngularOperation = new AngularOperation();
   let coordinateConversion: AngularConversion = new AngularConversion();
 
- 
+  //res.sendFile(path.join(__dirname+'/nav-showcase.html'));
+  res.sendFile(path.join(__dirname+'/../nav-showcase.html'));
 
-  res.send("Result is ");
 });
 
 app.get("/track", (req, res) => {
