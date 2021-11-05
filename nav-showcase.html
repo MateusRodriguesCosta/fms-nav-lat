@@ -3,34 +3,123 @@
 
 <head>
     <title>nav api showcase</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        background-image: url('https://www.teahub.io/photos/full/17-170471_wallpaper-airplane-aircraft-air-travel-4k-world-plane.jpg');
+        /*background-image: url('https://cutewallpaper.org/21/4k-airplane-wallpaper/Aircraft-4K-Ultra-HD-Live-Wallpaper-DSC4545-Screenshot-.jpg');*/
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
 
 <body>
-    <div class="container" style="width:1000px; margin:0 auto;">
-        <h1>NAV API SHOWCASE</h1>
-        <div style="display: flex; margin-bottom: 15px;">
-            <input id="latitude" type="text" placeholder="Latitude">
-            <input id="longitude" type="text" placeholder="longitude">
-            <button type="button">INCLUIR</button>
+
+
+    <div class="container">
+        <h1 style="color: white;">NAV API SHOWCASE</h1>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Latitude Aeronave</label>
+                            <input type="number" class="form-control" id="planeLatitude" value="-22.7272"
+                                placeholder="Latitude">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Longitude Aeronave</label>
+                            <input type="number" class="form-control" id="planeLongitude" value="-45.1199"
+                                placeholder="longitude">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-light btn-sm" onclick="drawPlane()">DEFINIR</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Latitude Waypoint</label>
+                            <input type="number" class="form-control" id="latitude" value="-25.526679"
+                                placeholder="Latitude">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Longitude Waypoint</label>
+                            <input type="number" class="form-control" id="longitude" value="-49.174595"
+                                placeholder="longitude">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-light" onclick="addWaypoint()">INCLUIR</button>
+                        <button type="button" class="btn btn-light">LIMPAR</button>
+                        <button type="button" class="btn btn-light" onclick="startDemo()">INICIAR
+                            DEFAULT</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8" style="position: relative;">
+                <div class="col-md-12">
+                    <div id="googleMap"
+                        style="width:100%;height:700px;border-top-left-radius: 20px;border-top-right-radius: 20px;box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;">
+                    </div>
+                </div>
+                <div class="col-md-12"
+                    style="position: relative;top:-5%;box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;">
+                    <div
+                        style="position: absolute; width: 100%;height: 90px;display: inline-block;background-color: white;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;">
+                    </div>
+                </div>
+
+
+            </div>
         </div>
-        <div id="googleMap" style="width:900px;height:700px;"></div>
+
+
+
+
     </div>
 
 </body>
 
 <script>
 
-    let _coordinates = [];
+    let _waypoints = [];
+    let _flightPath;
+    let _plane;
+    let _map;
+    let lorena = { lat: -22.7272, lng: -45.1199 };
+
+    const DEV_ENV = true;
 
     function initMap() {
 
-        const lorena = { lat: -22.7272, lng: -45.1199 };
+        lorena = new google.maps.LatLng(-22.7272, -45.1199);
 
-        const map = new google.maps.Map(document.getElementById("googleMap"), {
-            zoom: 11,
+        _map = new google.maps.Map(document.getElementById("googleMap"), {
+            zoom: 8,
             center: lorena,
-            mapTypeId: google.maps.MapTypeId.HYBRID,
-            zoomControl: true,
+            mapTypeId: google.maps.MapTypeId.TERRAIN,
+            zoomControl: false,
             mapTypeControl: false,
             scaleControl: false,
             streetViewControl: false,
@@ -39,54 +128,211 @@
 
         });
 
-        createMarker(lorena, map);
+        drawPlane(lorena);
 
-        var lineCoordinates = [
-            new google.maps.LatLng(-22.7272, -45.1199),
-            new google.maps.LatLng(45.4215296, -75.6571931)
+        Number.prototype.toRad = function () {
+            return this * Math.PI / 180;
+        }
+
+        Number.prototype.toDeg = function () {
+            return this * 180 / Math.PI;
+        }
+
+        google.maps.LatLng.prototype.moveTowards = function (point, distance) {
+            var lat1 = this.lat().toRad();
+            var lon1 = this.lng().toRad();
+            var lat2 = point.lat().toRad();
+            var lon2 = point.lng().toRad();
+            var dLon = (point.lng() - this.lng()).toRad();
+
+            // Find the bearing from this point to the next.
+            var brng = Math.atan2(Math.sin(dLon) * Math.cos(lat2),
+                Math.cos(lat1) * Math.sin(lat2) -
+                Math.sin(lat1) * Math.cos(lat2) *
+                Math.cos(dLon));
+
+            var angDist = distance / 6371000;  // Earth's radius.
+
+            // Calculate the destination point, given the source and bearing.
+            lat2 = Math.asin(Math.sin(lat1) * Math.cos(angDist) +
+                Math.cos(lat1) * Math.sin(angDist) *
+                Math.cos(brng));
+
+            lon2 = lon1 + Math.atan2(Math.sin(brng) * Math.sin(angDist) *
+                Math.cos(lat1),
+                Math.cos(angDist) - Math.sin(lat1) *
+                Math.sin(lat2));
+
+            if (isNaN(lat2) || isNaN(lon2)) return null;
+
+            return new google.maps.LatLng(lat2.toDeg(), lon2.toDeg());
+        }
+
+        var nextMarkerAt = 0;     // Counter for the marker checkpoints.
+        var nextPoint = null;     // The point where to place the next marker.
+
+        setInterval(function () {
+
+            // Call moveAlongPath which will return the LatLng with the next
+            // marker on the path.
+            nextPoint = moveAlongPath(_waypoints, nextMarkerAt);
+
+            if (nextPoint) {
+                // Draw the marker on the map. 
+                drawPlane(nextPoint);
+
+                // Add +1000 meters for the next checkpoint.
+                nextMarkerAt += 300;
+            }
+
+        }, 500);
+
+    }
+
+
+    function moveAlongPath(points, distance, index) {
+
+        index = index || 0;  // Set index to 0 by default.
+
+        if (index < points.length) {
+            // There is still at least one point further from this point.
+
+            // Get the distance from this point to the next point in the polyline.
+            var distanceToNextPoint = google.maps.geometry.spherical.computeLength(_flightPath.getPath());
+
+            if (distance <= distanceToNextPoint) {
+                // distanceToNextPoint is within this point and the next. 
+                // Return the destination point with moveTowards().
+                return points[index].moveTowards(points[index + 1], distance);
+            }
+            else {
+                // The destination is further from the next point. Subtract
+                // distanceToNextPoint from distance and continue recursively.
+                return moveAlongPath(points,
+                    distance - distanceToNextPoint,
+                    index + 1);
+            }
+        }
+        else {
+            // There are no further points. The distance exceeds the length  
+            // of the full path. Return null.
+            return null;
+        }
+    }
+
+    function startDemo() {
+
+        document.getElementById("planeLatitude").value = lorena.lat();
+        document.getElementById("planeLongitude").value = lorena.lng();
+
+        drawPlane(lorena);
+
+        _waypoints = [
+            new google.maps.LatLng(-22.7272, -45.1199), //lorena
+            new google.maps.LatLng(-23.22454018035804, -45.86189806766766), //SJC
+            new google.maps.LatLng(-23.431944, -46.469444), //Guarulhos
+            new google.maps.LatLng(-22.9064, -47.0616) //Viracopos Campinas
         ];
 
-        drawLine(lineCoordinates, map);
+        drawFlightPath();
 
+        for (const coordinate of _waypoints) {
+         
+            drawWaypoint(coordinate);
 
-
+        }        
 
     }
 
-    function createMarker(position, map) {
-        const image = {
-            url: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
-            // This marker is 20 pixels wide by 32 pixels high.
-            size: new google.maps.Size(10, 12),
-            // The origin for this image is (0, 0).
+    function APIRequest() {
+
+    }
+
+    function addWaypoint() {
+
+        let new_waypoint = new google.maps.LatLng(
+            +document.getElementById("latitude").value,
+            +document.getElementById("longitude").value);
+
+        _waypoints = [..._waypoints, new_waypoint];
+
+        drawWaypoint(new_waypoint);
+
+        drawFlightPath();
+    }
+
+    function drawWaypoint(new_waypoint) {
+
+        waypointIcon = {
+            url: "https://i.imgur.com/fFsWtJq.png",
+            size: new google.maps.Size(72, 72),
+            scaledSize: new google.maps.Size(32, 32),
             origin: new google.maps.Point(0, 0),
-            // The anchor for this image is the base of the flagpole at (0, 32).
-            anchor: new google.maps.Point(0, 32),
+            anchor: new google.maps.Point(16, 16)
         };
 
-
-        const marker = new google.maps.Marker({
-            position: position,
-            map: map,
-            icon: image
+        const plane = new google.maps.Marker({
+            position: new_waypoint,
+            map: _map,
+            icon: waypointIcon
         });
+
     }
 
-    function drawLine(coordinates, map) {
-        var line = new google.maps.Polyline({
-            path: coordinates,
+    function drawPlane(coordinate = null) {
+
+        if (coordinate === null) {
+
+            coordinate = new google.maps.LatLng(
+                +document.getElementById("planeLatitude").value,
+                +document.getElementById("planeLongitude").value);
+
+        }
+
+        planeIcon = {
+            url: "https://i.imgur.com/7gokwuN.png",
+            size: new google.maps.Size(76, 76),
+            scaledSize: new google.maps.Size(24, 24),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(12, 12)
+        };
+
+        if (_plane) _plane.setMap(null);
+
+        _plane = new google.maps.Marker({
+            position: coordinate,
+            map: _map,
+            icon: planeIcon
+        });
+
+    }
+
+    function drawPlaneCourse(){
+
+    }
+
+    function drawFlightPath() {
+
+        if (_flightPath) _flightPath.setMap(null);
+
+        _flightPath = new google.maps.Polyline({
+            path: _waypoints,
             geodesic: true,
-            strokeColor: "#FF0000",
+            strokeColor: "#000000",
             strokeOpacity: 1.0,
             strokeWeight: 2,
-            map: map
+            map: _map
         });
+
     }
 
 </script>
 
 <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOV8ryzt1t1suuZmkjTJqFcYIASNMbIqM&callback=initMap&libraries=&v=weekly"
-    async></script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOV8ryzt1t1suuZmkjTJqFcYIASNMbIqM&callback=initMap&libraries=geometry&v=weekly"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+    crossorigin="anonymous"></script>
+
 
 </html>
