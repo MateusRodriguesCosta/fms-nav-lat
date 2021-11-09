@@ -106,7 +106,7 @@
     let _waypoints = [];
     let _flightPath;
     let _planeHeading;
-    let _next_waypoint;
+    let _next_move_point;
     let _plane;
     let _map;
     let lorena = { lat: -22.7272, lng: -45.1199 };
@@ -130,8 +130,9 @@
 
         });
 
-        test = new google.maps.LatLng(-22.69153250962491, -45.06819154454027);
-        drawPlane(test);
+        let plane_position = new google.maps.LatLng(-22.69153250962491, -45.06819154454027);
+
+        drawPlane(plane_position);
 
         Number.prototype.toRad = function () {
             return this * Math.PI / 180;
@@ -168,23 +169,21 @@
         }
 
         var travelled_distance = 0; // Counter for the marker checkpoints.
-        _next_waypoint = null;      // The point where to place the next marker.
+        _next_move_point = null;    // The point where to place the next marker.
 
         setInterval(function () {
 
             // Call moveAlongPath which will return the LatLng with the next
             // marker on the path.
-            _next_waypoint = moveAlongPath(_waypoints, travelled_distance);
+            _next_move_point = moveAlongPath(_waypoints, travelled_distance);
 
-            if (_next_waypoint) {
-
-                drawPlaneHeading();
+            if (_next_move_point) {
 
                 // Draw the marker on the map. 
-                drawPlane(_next_waypoint);
+                drawPlane(_next_move_point);
 
                 // Add +1000 meters for the next checkpoint.
-                travelled_distance += 300;
+                travelled_distance += 10;
             }
 
         }, 500);
@@ -192,24 +191,25 @@
     }
 
 
-    function moveAlongPath(waypoints, travelled_distance) {
+    function moveAlongPath(waypoints, travelled_distance, index) {
 
-        index = index || 0;  // Set index to 0 by default.
+        index = index || 0;  // Set index to 0 by default.        
 
         if (index < waypoints.length) {
             // There is still at least one point further from this point.
 
             // Get the distance from this point to the next point in the polyline.
-            let line_next_waypoint = [waypoints[index], waypoints[index + 1]]
+            let line_next_move_point = [_plane.getPosition(), waypoints[index + 1]]
 
-            line_next_waypoint = new google.maps.Polyline({ path: line_next_waypoint });
+            line_next_move_point = new google.maps.Polyline({ path: line_next_move_point });
 
-            var remaining_distance = google.maps.geometry.spherical.computeLength(line_next_waypoint.getPath());
+            var remaining_distance = google.maps.geometry.spherical.computeLength(line_next_move_point.getPath());
 
             if (travelled_distance <= remaining_distance) {
+
                 // remaining_distance is within this point and the next. 
                 // Return the destination point with moveTowards().
-                return waypoints[index].moveTowards(waypoints[index + 1], travelled_distance);
+                return _plane.getPosition().moveTowards(waypoints[index + 1], travelled_distance);
             }
             else {
                 // The destination is further from the next point. Subtract
@@ -224,33 +224,71 @@
         }
     }
 
-    function startDemo() {
 
-        document.getElementById("planeLatitude").value = lorena.lat();
-        document.getElementById("planeLongitude").value = lorena.lng();
 
-        //drawPlane(lorena);
+    function drawPlane(coordinate) {
 
-        _waypoints = [
-            new google.maps.LatLng(-22.7272, -45.1199), //lorena
-            new google.maps.LatLng(-23.22454018035804, -45.86189806766766), //SJC
-            new google.maps.LatLng(-23.431944, -46.469444), //Guarulhos
-            new google.maps.LatLng(-22.9064, -47.0616) //Viracopos Campinas
-        ];
+        coordinate = coordinate || new google.maps.LatLng(
+            +document.getElementById("planeLatitude").value,
+            +document.getElementById("planeLongitude").value);
 
-        drawFlightPath();
 
-        for (const coordinate of _waypoints) {
+        planeIcon = {
+            url: "https://i.imgur.com/7gokwuN.png",
+            size: new google.maps.Size(76, 76),
+            scaledSize: new google.maps.Size(24, 24),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(12, 12)
+        };
 
-            drawWaypoint(coordinate);
+        if (_plane) _plane.setMap(null);
 
-        }
+        _plane = new google.maps.Marker({
+            position: coordinate,
+            map: _map,
+            icon: planeIcon
+        });
+
+        drawPlaneHeading();
 
     }
 
-    function addWaypoint() {
+    function drawPlaneHeading() {
 
-        let new_waypoint = new google.maps.LatLng(
+        if (!_flightPath) return;
+
+        if (_planeHeading) _planeHeading.setMap(null);
+
+        const lineSymbol = {
+            path: "M 0,-1 0,1",
+            strokeOpacity: 1,
+            scale: 1,
+        };
+
+        _planeHeading = new google.maps.Polyline({
+            path: [
+                _plane.getPosition(),
+                _flightPath.next_waypoint
+            ],
+            geodesic: true,
+            strokeColor: "#000000",
+            strokeOpacity: 0,
+            strokeWeight: 1,
+            icons: [
+                {
+                    icon: lineSymbol,
+                    offset: "0",
+                    repeat: "5px",
+                },
+            ],
+            map: _map
+        });
+
+    }
+
+    function addWaypoint(new_waypoint) {
+
+        new_waypoint = new_waypoint || new google.maps.LatLng(
             +document.getElementById("latitude").value,
             +document.getElementById("longitude").value);
 
@@ -279,67 +317,6 @@
 
     }
 
-    function drawPlane(coordinate = null) {
-
-        if (coordinate === null) {
-
-            coordinate = new google.maps.LatLng(
-                +document.getElementById("planeLatitude").value,
-                +document.getElementById("planeLongitude").value);
-
-        }
-
-        planeIcon = {
-            url: "https://i.imgur.com/7gokwuN.png",
-            size: new google.maps.Size(76, 76),
-            scaledSize: new google.maps.Size(24, 24),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(12, 12)
-        };
-
-        if (_plane) _plane.setMap(null);
-
-        _plane = new google.maps.Marker({
-            position: coordinate,
-            map: _map,
-            icon: planeIcon
-        });
-
-    }
-
-    function drawPlaneHeading() {
-
-        if (!_next_waypoint) return;
-
-        if (_planeHeading) _planeHeading.setMap(null);
-
-        const lineSymbol = {
-            path: "M 0,-1 0,1",
-            strokeOpacity: 1,
-            scale: 2,
-        };
-
-        _planeHeading = new google.maps.Polyline({
-            path: [
-                _plane.getPosition(),
-                _next_waypoint
-            ],
-            geodesic: true,
-            strokeColor: "#000000",
-            strokeOpacity: 1.0,
-            strokeWeight: 1,
-            icons: [
-                {
-                    icon: lineSymbol,
-                    offset: "0",
-                    repeat: "10px",
-                },
-            ],
-            map: _map
-        });
-
-    }
-
     function drawFlightPath() {
 
         if (_flightPath) _flightPath.setMap(null);
@@ -350,8 +327,18 @@
             strokeColor: "#000000",
             strokeOpacity: 1.0,
             strokeWeight: 2,
-            map: _map
+            map: _map,
+            next_waypoint: _waypoints[0]
         });
+
+    }
+
+    function startDemo() {
+
+        addWaypoint(new google.maps.LatLng(-22.7272, -45.1199)); //lorena
+        addWaypoint(new google.maps.LatLng(-23.22454018035804, -45.86189806766766)); //SJC
+        addWaypoint(new google.maps.LatLng(-23.431944, -46.469444)); //Guarulhos
+        addWaypoint(new google.maps.LatLng(-22.9064, -47.0616)); //Viracopos Campinas                
 
     }
 
