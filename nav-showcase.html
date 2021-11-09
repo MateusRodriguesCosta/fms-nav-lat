@@ -105,6 +105,8 @@
 
     let _waypoints = [];
     let _flightPath;
+    let _planeHeading;
+    let _next_waypoint;
     let _plane;
     let _map;
     let lorena = { lat: -22.7272, lng: -45.1199 };
@@ -128,7 +130,8 @@
 
         });
 
-        drawPlane(lorena);
+        test = new google.maps.LatLng(-22.69153250962491, -45.06819154454027);
+        drawPlane(test);
 
         Number.prototype.toRad = function () {
             return this * Math.PI / 180;
@@ -154,32 +157,31 @@
             var angDist = distance / 6371000;  // Earth's radius.
 
             // Calculate the destination point, given the source and bearing.
-            lat2 = Math.asin(Math.sin(lat1) * Math.cos(angDist) +
-                Math.cos(lat1) * Math.sin(angDist) *
-                Math.cos(brng));
+            lat2 = Math.asin(Math.sin(lat1) * Math.cos(angDist) + Math.cos(lat1) * Math.sin(angDist) * Math.cos(brng));
 
-            lon2 = lon1 + Math.atan2(Math.sin(brng) * Math.sin(angDist) *
-                Math.cos(lat1),
-                Math.cos(angDist) - Math.sin(lat1) *
-                Math.sin(lat2));
+            lon2 = lon1 + Math.atan2(Math.sin(brng) * Math.sin(angDist) * Math.cos(lat1),
+                Math.cos(angDist) - Math.sin(lat1) * Math.sin(lat2));
 
             if (isNaN(lat2) || isNaN(lon2)) return null;
 
             return new google.maps.LatLng(lat2.toDeg(), lon2.toDeg());
         }
 
-        var travelled_distance = 0;     // Counter for the marker checkpoints.
-        var next_waypoint = null;     // The point where to place the next marker.
+        var travelled_distance = 0; // Counter for the marker checkpoints.
+        _next_waypoint = null;      // The point where to place the next marker.
 
         setInterval(function () {
 
             // Call moveAlongPath which will return the LatLng with the next
             // marker on the path.
-            next_waypoint = moveAlongPath(_waypoints, travelled_distance);
+            _next_waypoint = moveAlongPath(_waypoints, travelled_distance);
 
-            if (next_waypoint) {
+            if (_next_waypoint) {
+
+                drawPlaneHeading();
+
                 // Draw the marker on the map. 
-                drawPlane(next_waypoint);
+                drawPlane(_next_waypoint);
 
                 // Add +1000 meters for the next checkpoint.
                 travelled_distance += 300;
@@ -190,7 +192,7 @@
     }
 
 
-    function moveAlongPath(waypoints, travelled_distance, index) {
+    function moveAlongPath(waypoints, travelled_distance) {
 
         index = index || 0;  // Set index to 0 by default.
 
@@ -198,11 +200,11 @@
             // There is still at least one point further from this point.
 
             // Get the distance from this point to the next point in the polyline.
-            let line_next_waypoint = [waypoints[index],waypoints[index + 1]]
+            let line_next_waypoint = [waypoints[index], waypoints[index + 1]]
 
-            line_next_waypoint = new google.maps.Polyline({path: line_next_waypoint});
+            line_next_waypoint = new google.maps.Polyline({ path: line_next_waypoint });
 
-            var remaining_distance = google.maps.geometry.spherical.computeLength(line_next_waypoint.getPath());            
+            var remaining_distance = google.maps.geometry.spherical.computeLength(line_next_waypoint.getPath());
 
             if (travelled_distance <= remaining_distance) {
                 // remaining_distance is within this point and the next. 
@@ -227,7 +229,7 @@
         document.getElementById("planeLatitude").value = lorena.lat();
         document.getElementById("planeLongitude").value = lorena.lng();
 
-        drawPlane(lorena);
+        //drawPlane(lorena);
 
         _waypoints = [
             new google.maps.LatLng(-22.7272, -45.1199), //lorena
@@ -239,14 +241,10 @@
         drawFlightPath();
 
         for (const coordinate of _waypoints) {
-         
+
             drawWaypoint(coordinate);
 
-        }        
-
-    }
-
-    function APIRequest() {
+        }
 
     }
 
@@ -309,7 +307,36 @@
 
     }
 
-    function drawPlaneCourse(){
+    function drawPlaneHeading() {
+
+        if (!_next_waypoint) return;
+
+        if (_planeHeading) _planeHeading.setMap(null);
+
+        const lineSymbol = {
+            path: "M 0,-1 0,1",
+            strokeOpacity: 1,
+            scale: 2,
+        };
+
+        _planeHeading = new google.maps.Polyline({
+            path: [
+                _plane.getPosition(),
+                _next_waypoint
+            ],
+            geodesic: true,
+            strokeColor: "#000000",
+            strokeOpacity: 1.0,
+            strokeWeight: 1,
+            icons: [
+                {
+                    icon: lineSymbol,
+                    offset: "0",
+                    repeat: "10px",
+                },
+            ],
+            map: _map
+        });
 
     }
 
