@@ -168,21 +168,21 @@
             return new google.maps.LatLng(lat2.toDeg(), lon2.toDeg());
         }
 
-        var nextMarkerAt = 0;     // Counter for the marker checkpoints.
-        var nextPoint = null;     // The point where to place the next marker.
+        var travelled_distance = 0;     // Counter for the marker checkpoints.
+        var next_waypoint = null;     // The point where to place the next marker.
 
         setInterval(function () {
 
             // Call moveAlongPath which will return the LatLng with the next
             // marker on the path.
-            nextPoint = moveAlongPath(_waypoints, nextMarkerAt);
+            next_waypoint = moveAlongPath(_waypoints, travelled_distance);
 
-            if (nextPoint) {
+            if (next_waypoint) {
                 // Draw the marker on the map. 
-                drawPlane(nextPoint);
+                drawPlane(next_waypoint);
 
                 // Add +1000 meters for the next checkpoint.
-                nextMarkerAt += 300;
+                travelled_distance += 300;
             }
 
         }, 500);
@@ -190,31 +190,33 @@
     }
 
 
-    function moveAlongPath(points, distance, index) {
+    function moveAlongPath(waypoints, travelled_distance, index) {
 
         index = index || 0;  // Set index to 0 by default.
 
-        if (index < points.length) {
+        if (index < waypoints.length) {
             // There is still at least one point further from this point.
 
             // Get the distance from this point to the next point in the polyline.
-            var distanceToNextPoint = google.maps.geometry.spherical.computeLength(_flightPath.getPath());
+            let line_next_waypoint = [waypoints[index],waypoints[index + 1]]
 
-            if (distance <= distanceToNextPoint) {
-                // distanceToNextPoint is within this point and the next. 
+            line_next_waypoint = new google.maps.Polyline({path: line_next_waypoint});
+
+            var remaining_distance = google.maps.geometry.spherical.computeLength(line_next_waypoint.getPath());            
+
+            if (travelled_distance <= remaining_distance) {
+                // remaining_distance is within this point and the next. 
                 // Return the destination point with moveTowards().
-                return points[index].moveTowards(points[index + 1], distance);
+                return waypoints[index].moveTowards(waypoints[index + 1], travelled_distance);
             }
             else {
                 // The destination is further from the next point. Subtract
-                // distanceToNextPoint from distance and continue recursively.
-                return moveAlongPath(points,
-                    distance - distanceToNextPoint,
-                    index + 1);
+                // remaining_distance from distance and continue recursively.
+                return moveAlongPath(waypoints, travelled_distance - remaining_distance, index + 1);
             }
         }
         else {
-            // There are no further points. The distance exceeds the length  
+            // There are no further waypoints. The distance exceeds the length  
             // of the full path. Return null.
             return null;
         }
