@@ -123,8 +123,8 @@
     let _planeHeading;
     let _plane;
     let _map;
-
     let AIRPORTS;
+    const DEV_ENV = true;
 
     function readMockData(mock) {
 
@@ -142,7 +142,7 @@
             .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
     }
 
-    httpGetAsync('http://localhost/mock-airports', readMockData);
+    httpGetAsync(location.protocol + '//' + location.host + '/mock-airports', readMockData);
 
     $('#select-airport').on('change', function (e) {
         var optionSelected = $("option:selected", this);
