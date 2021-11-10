@@ -15,6 +15,9 @@ app.get("/", (req, res) => {
     //res.sendFile(path.join(__dirname+'/nav-showcase.html'));
     res.sendFile(path_1.default.join(__dirname + '/../nav-showcase.html'));
 });
+app.get("/mock-airports", (req, res) => {
+    res.sendFile(path_1.default.join(__dirname + '/../mock/MOCK_AIRPORTS.json'));
+});
 app.get("/track", (req, res) => {
     res.send("GETTING WHOLE TRACK COORDINATES");
 });

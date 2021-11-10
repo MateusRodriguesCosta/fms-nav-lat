@@ -52,6 +52,19 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="select-airport">Aeroportos</label>
+                            <select id="select-airport" class="form-select" aria-label="Default select example">
+                                <option selected>Selecione um aeroporto como waypoint</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Latitude Waypoint</label>
@@ -101,6 +114,8 @@
 
 </body>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
 
     let _waypoints = [];
@@ -108,6 +123,38 @@
     let _planeHeading;
     let _plane;
     let _map;
+
+    let AIRPORTS;
+
+    function readMockData(mock) {
+
+        AIRPORTS = JSON.parse(mock);
+        for (const key in AIRPORTS) {
+            if (Object.hasOwnProperty.call(AIRPORTS, key)) {
+                const airport = AIRPORTS[key];
+
+                $('#select-airport').append(`<option value="${airport.icao}">${airport.name} (${airport.icao})</option>`);
+            }
+        }
+
+        const sortable = Object.entries(AIRPORTS)
+            .sort(([, a], [, b]) => a - b)
+            .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+    }
+
+    httpGetAsync('http://localhost/mock-airports', readMockData);
+
+    $('#select-airport').on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+
+        if (Object.hasOwnProperty.call(AIRPORTS, valueSelected)) { 
+
+            $("#latitude").val(AIRPORTS[valueSelected].lat);
+            $("#longitude").val(AIRPORTS[valueSelected].lon);
+        }        
+
+    });
 
     function initMap() {
 
@@ -168,6 +215,7 @@
 
         let travelled_distance = 0; // Counter for the marker checkpoints.        
         let coordinate = null;    // The point where to place the next marker.
+        let time_format = 1000; // Default is meters per SECOND
 
         setInterval(function () {
 
@@ -175,47 +223,51 @@
 
                 // Call next_move_point which will return the LatLng with the next
                 // marker on the path.
-                coordinate = next_move_point(_waypoints, travelled_distance);
+                coordinate = next_move_point(_waypoints);
 
                 if (coordinate) {
 
                     // Draw the plane on the map. 
                     drawPlane(coordinate);
 
-                    // Add +1000 meters for the next checkpoint.
-                    travelled_distance += 150;
+                    // Add distance in meters per second for the next coordinate.
+                    //travelled_distance += _plane.speed_kmh / 3.6;
                 }
             }
 
-        }, 500);
+        }, time_format);
 
     }
 
 
-    function next_move_point(waypoints, travelled_distance) {             
+    function next_move_point(waypoints, travelled_distance) {
+
+        travelled_distance = travelled_distance || _plane.speed_kmh / 3.6;
 
         if (_flightPath.next_waypoint_idx < waypoints.length) {
             // There is still at least one point further from this point.
 
             // Get the distance from this point to the next point in the polyline.
-            let line_next_move_point = [_plane.getPosition(), waypoints[_flightPath.next_waypoint_idx]]
-            line_next_move_point = new google.maps.Polyline({ path: line_next_move_point });
-            var remaining_distance = google.maps.geometry.spherical.computeLength(line_next_move_point.getPath());                        
+            let next_move_point_diff = [_plane.getPosition(), waypoints[_flightPath.next_waypoint_idx]]
+            let line_next_move_point = new google.maps.Polyline({ path: next_move_point_diff });
+            const remaining_distance = google.maps.geometry.spherical.computeLength(line_next_move_point.getPath());
+
             
-            if (travelled_distance <= remaining_distance) {                
+            if (remaining_distance > 300) {
 
                 // remaining_distance is within this point and the next. 
                 // Return the destination point with moveTowards().                
-                return _plane.getPosition().moveTowards(waypoints[_flightPath.next_waypoint_idx], travelled_distance);
+                return _plane.getPosition().moveTowards(waypoints[_flightPath.next_waypoint_idx], _plane.speed_kmh / 3.6);
             }
-            else {                
+            else {
 
+                console.log('mudou');
                 // The destination is further from the next point. Subtract
                 // remaining_distance from distance and continue recursively.
                 _flightPath.next_waypoint_idx += 1;
                 _flightPath.next_waypoint = _waypoints[_flightPath.next_waypoint_idx];
 
-                return next_move_point(waypoints, 150);
+                return next_move_point(waypoints, _plane.speed_kmh / 3.6);
             }
         }
         else {
@@ -229,10 +281,7 @@
 
     function drawPlane(coordinate) {
 
-        coordinate = coordinate || new google.maps.LatLng(
-            +document.getElementById("planeLatitude").value,
-            +document.getElementById("planeLongitude").value);
-
+        coordinate = coordinate || new google.maps.LatLng(+$("#planeLatitude").val(), +$("#planeLongitude").val());
 
         planeIcon = {
             url: "https://i.imgur.com/7gokwuN.png",
@@ -247,7 +296,8 @@
         _plane = new google.maps.Marker({
             position: coordinate,
             map: _map,
-            icon: planeIcon
+            icon: planeIcon,
+            speed_kmh: 612, // Km/h
         });
 
         drawPlaneHeading();
@@ -289,15 +339,25 @@
 
     function addWaypoint(new_waypoint) {
 
-        new_waypoint = new_waypoint || new google.maps.LatLng(
-            +document.getElementById("latitude").value,
-            +document.getElementById("longitude").value);
+        new_waypoint = new_waypoint || new google.maps.LatLng(+$("#latitude").val(), +$("#longitude").val());        
 
-        _waypoints = [..._waypoints, new_waypoint];
+        let no_duplicates = true;
 
-        drawWaypoint(new_waypoint);
+        _waypoints.forEach(w => {
 
-        if (_waypoints.length > 1) drawFlightPath();
+            if (w.lat() == new_waypoint.lat() && w.lng() == new_waypoint.lng()) no_duplicates = false;
+
+        });
+
+        if (no_duplicates) {
+
+            _waypoints = [..._waypoints, new_waypoint];
+            
+            drawWaypoint(new_waypoint);
+
+            if (_waypoints.length > 1) drawFlightPath();
+        }
+
     }
 
     function drawWaypoint(new_waypoint) {
@@ -342,6 +402,16 @@
         addWaypoint(new google.maps.LatLng(-23.431944, -46.469444)); //Guarulhos
         addWaypoint(new google.maps.LatLng(-22.9064, -47.0616)); //Viracopos Campinas                
 
+    }
+
+    function httpGetAsync(theUrl, callback) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.send(null);
     }
 
 </script>

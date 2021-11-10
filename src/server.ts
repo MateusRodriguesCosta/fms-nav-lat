@@ -15,6 +15,12 @@ app.get("/", (req, res) => {
 
 });
 
+app.get("/mock-airports", (req, res) => {
+  
+  res.sendFile(path.join(__dirname+'/../mock/MOCK_AIRPORTS.json'));  
+
+});
+
 app.get("/track", (req, res) => {
   res.send("GETTING WHOLE TRACK COORDINATES");
 });
