@@ -1,5 +1,4 @@
 import AngularConversion from "../core/angularConversion";
-import AngularType from "../Enums/angularType";
 import Hemisphere from "../Enums/hemisphere";
 
 class Latitude {

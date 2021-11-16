@@ -171,7 +171,7 @@
 
         });
 
-        drawPlane(new google.maps.LatLng(-22.69153250962491, -45.06819154454027));
+        drawPlane(new google.maps.LatLng(-23.041815521201432, -45.52614687118101));
 
         Number.prototype.toRad = function () {
             return this * Math.PI / 180;
@@ -288,7 +288,7 @@
             size: new google.maps.Size(76, 76),
             scaledSize: new google.maps.Size(24, 24),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(12, 12)
+            anchor: new google.maps.Point(12, 12),            
         };
 
         if (_plane) _plane.setMap(null);
@@ -296,7 +296,7 @@
         _plane = new google.maps.Marker({
             position: coordinate,
             map: _map,
-            icon: planeIcon,
+            icon: planeIcon,            
             speed_kmh: 612, // Km/h
         });
 
@@ -396,8 +396,7 @@
     }
 
     function startDemo() {
-
-        addWaypoint(new google.maps.LatLng(-22.7272, -45.1199)); //lorena
+                        
         addWaypoint(new google.maps.LatLng(-23.22454018035804, -45.86189806766766)); //SJC
         addWaypoint(new google.maps.LatLng(-23.431944, -46.469444)); //Guarulhos
         addWaypoint(new google.maps.LatLng(-22.9064, -47.0616)); //Viracopos Campinas                
