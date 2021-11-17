@@ -26,6 +26,14 @@ class Longitude {
     this.Longitude = longitude;
   }
 
+  public get radians(): number {
+    return this.Longitude * Math.PI / 180;
+  }
+
+  public get degrees(): number {
+    return this.Longitude * 180 / Math.PI;
+  }
+
   public get dms(): string {
     const angularConversion: AngularConversion = new AngularConversion();
     return angularConversion.toDMS(this.Longitude);

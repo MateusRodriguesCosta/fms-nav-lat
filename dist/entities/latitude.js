@@ -20,6 +20,12 @@ class Latitude {
     set decimal(latitude) {
         this.Latitude = latitude;
     }
+    get radians() {
+        return this.Latitude * Math.PI / 180;
+    }
+    get degrees() {
+        return this.Latitude * 180 / Math.PI;
+    }
     get dms() {
         const angularConversion = new angularConversion_1.default();
         return angularConversion.toDMS(this.Latitude);

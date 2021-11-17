@@ -28,7 +28,7 @@ class AngularConversions {
     }
 
     return `${degrees}°${minutes}'${seconds}"`;
-  }
+}
 
   toDecimal(value: string, hemisphere: Hemisphere): number {
 

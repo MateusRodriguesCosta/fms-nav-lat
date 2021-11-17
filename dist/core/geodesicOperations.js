@@ -7,7 +7,7 @@ const latitude_1 = __importDefault(require("../entities/latitude"));
 const longitude_1 = __importDefault(require("../entities/longitude"));
 class GeodesicOperations {
     constructor() {
-        this.earthRadius = 6371e3; // metres
+        this.earthRadius = 6371000;
     }
     sum(angle1, angle2) {
         return angle1 + angle2;
@@ -105,40 +105,32 @@ class GeodesicOperations {
     // which if followed in a straight line along a great-circle arc will take you from the start point to the end point.
     // Formula: 	θ = atan2( sin Δλ ⋅ cos φ2 , cos φ1 ⋅ sin φ2 − sin φ1 ⋅ cos φ2 ⋅ cos Δλ )
     // where 	φ1,λ1 is the start point, φ2,λ2 the end point (Δλ is the difference in longitude)
-    initialBearing(coordinate1, coordinate2) {
-        const y = Math.sin(coordinate2.Longitude.decimal - coordinate1.Longitude.decimal) *
-            Math.cos(coordinate2.Latitude.decimal);
-        const x = Math.cos(coordinate1.Latitude.decimal) *
-            Math.sin(coordinate2.Latitude.decimal) -
-            Math.sin(coordinate1.Latitude.decimal) *
-                Math.cos(coordinate2.Latitude.decimal) *
-                Math.cos(coordinate2.Longitude.decimal - coordinate1.Longitude.decimal);
+    forwardBearing(coordinate1, coordinate2) {
+        const y = Math.sin(coordinate2.Longitude.radians - coordinate1.Longitude.radians) *
+            Math.cos(coordinate2.Latitude.radians);
+        const x = Math.cos(coordinate1.Latitude.radians) *
+            Math.sin(coordinate2.Latitude.radians) -
+            Math.sin(coordinate1.Latitude.radians) *
+                Math.cos(coordinate2.Latitude.radians) *
+                Math.cos(coordinate2.Longitude.radians - coordinate1.Longitude.radians);
         const θ = Math.atan2(y, x);
-        const brng = ((θ * 180) / Math.PI + 360) % 360; // in degrees
-        return brng;
+        return θ;
     }
     // Given a start point, initial bearing, and distance, this will calculate the destina­tion point
     // and final bearing travelling along a (shortest distance) great circle arc.
     // Formula: 	φ2 = asin( sin φ1 ⋅ cos δ + cos φ1 ⋅ sin δ ⋅ cos θ )
     // λ2 = λ1 + atan2( sin θ ⋅ sin δ ⋅ cos φ1, cos δ − sin φ1 ⋅ sin φ2 )
     // where 	φ is latitude, λ is longitude, θ is the bearing (clockwise from north), δ is the angular distance d/R; d being the distance travelled, R the earth’s radius
-    destinationFromBearing(coordinate1, bearing, distance) {
-        const φ2 = Math.asin(Math.sin(coordinate1.Latitude.decimal) *
-            Math.cos(distance / this.earthRadius) +
-            Math.cos(coordinate1.Latitude.decimal) *
-                Math.sin(distance / this.earthRadius) *
-                Math.cos(bearing));
-        const λ2 = coordinate1.Longitude.decimal +
-            Math.atan2(Math.sin(bearing) *
-                Math.sin(distance / this.earthRadius) *
-                Math.cos(coordinate1.Latitude.decimal), Math.cos(distance / this.earthRadius) -
-                Math.sin(coordinate1.Latitude.decimal) * Math.sin(φ2));
-        // The longitude can be normalised to −180…+180 using (lon+540)%360-180
-        let latitude = new latitude_1.default(φ2);
-        let longitude = new longitude_1.default(φ2);
-        let coordinate = new coordinate_1.default(latitude, longitude);
-        coordinate.setHemispheres();
-        return coordinate;
+    destinationFromBearing(coordinate, bearing, distance) {
+        const distancia_angular = distance / this.earthRadius;
+        const start_lat = coordinate.Latitude.radians;
+        const start_lng = coordinate.Longitude.radians;
+        const φ2 = Math.asin(Math.sin(start_lat) * Math.cos(distancia_angular) + Math.cos(start_lat) * Math.sin(distancia_angular) * Math.cos(bearing));
+        const λ2 = start_lng + Math.atan2(Math.sin(bearing) * Math.sin(distancia_angular) * Math.cos(start_lat), Math.cos(distancia_angular) - Math.sin(start_lat) * Math.sin(φ2));
+        // Convert back from radians to degrees
+        const coordinate_res = new coordinate_1.default(new latitude_1.default(φ2 * 180 / Math.PI), new longitude_1.default(λ2 * 180 / Math.PI));
+        coordinate_res.setHemispheres();
+        return coordinate_res;
     }
 }
 module.exports = GeodesicOperations;

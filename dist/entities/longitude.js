@@ -20,6 +20,12 @@ class Longitude {
     set decimal(longitude) {
         this.Longitude = longitude;
     }
+    get radians() {
+        return this.Longitude * Math.PI / 180;
+    }
+    get degrees() {
+        return this.Longitude * 180 / Math.PI;
+    }
     get dms() {
         const angularConversion = new angularConversion_1.default();
         return angularConversion.toDMS(this.Longitude);

@@ -26,6 +26,14 @@ class Latitude {
     this.Latitude = latitude;
   }
 
+  public get radians(): number {
+    return this.Latitude * Math.PI / 180;
+  }
+
+  public get degrees(): number {
+    return this.Latitude * 180 / Math.PI;
+  }
+
   public get dms(): string {
     const angularConversion: AngularConversion = new AngularConversion();
     return angularConversion.toDMS(this.Latitude);
